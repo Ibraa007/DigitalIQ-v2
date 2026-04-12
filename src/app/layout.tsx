@@ -6,6 +6,7 @@ import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 import LogoIntro from '@/components/ui/LogoIntro'
 import CustomCursor from '@/components/ui/CustomCursor'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const [pageReady, setPageReady] = useState(false)
@@ -42,6 +43,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <main className="pt-[72px]">{children}</main>
           <Footer />
         </div>
+        <SpeedInsights />
       </body>
     </html>
   )
