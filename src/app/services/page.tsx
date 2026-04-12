@@ -48,12 +48,12 @@ export default function ServicesPage() {
             >
               {servicesContent.hero.headline}
             </motion.h1>
-            <motion.h1
+            <motion.p
               variants={staggerItem}
               className="text-display-lg font-satoshi text-accent mb-8"
             >
               {servicesContent.hero.headlineLine2}
-            </motion.h1>
+            </motion.p>
             <motion.div variants={staggerItem} className="w-12 h-px bg-accent mb-8" />
             <motion.p
               variants={staggerItem}

@@ -149,9 +149,9 @@ export default function MethodPage() {
             <motion.h1 variants={staggerItem} className="text-display-lg font-satoshi text-text-primary mb-2">
               Growth does not compound by accident.
             </motion.h1>
-            <motion.h1 variants={staggerItem} className="text-display-lg font-satoshi text-accent mb-8">
+            <motion.p variants={staggerItem} className="text-display-lg font-satoshi text-accent mb-8">
               It compounds by sequence.
-            </motion.h1>
+            </motion.p>
             <motion.div variants={staggerItem} className="w-12 h-px bg-accent mb-8" />
             <motion.p variants={staggerItem} className="text-body-lg text-text-secondary max-w-[560px] leading-relaxed">
               {methodContent.hero.body}

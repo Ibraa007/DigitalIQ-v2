@@ -435,8 +435,8 @@ export const startNowContent = {
     body: 'This protects the brand. It protects the work. And it is one of the reasons the results can be trusted.',
   },
   ctas: [
-    { label: 'Book the Alignment Call', href: '#', variant: 'primary' as const },
-    { label: 'Send Us a Message', href: '#', variant: 'ghost' as const },
+    { label: 'Book the Alignment Call', href: '#contact', variant: 'primary' as const },
+    { label: 'Send Us a Message', href: '#contact', variant: 'ghost' as const },
   ],
 }
 
