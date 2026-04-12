@@ -30,7 +30,7 @@ export default function EnginesOverview() {
           {/* Headline — split into two lines */}
           <motion.h2
             variants={staggerItem}
-            className="text-heading-xl font-satoshi text-text-primary"
+            className="text-display-lg font-satoshi text-text-primary"
           >
             <span className="block">Five engines.</span>
             <span className="block text-accent">One Intelligence Layer.</span>

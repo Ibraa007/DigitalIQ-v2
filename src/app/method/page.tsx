@@ -12,10 +12,12 @@ function StageCard({
   stage,
   index,
   isLast,
+  ghostOpacity,
 }: {
   stage: typeof methodContent.stages[0]
   index: number
   isLast: boolean
+  ghostOpacity: number
 }) {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
@@ -36,7 +38,7 @@ function StageCard({
           <div className={`lg:col-span-2 flex items-start justify-start ${isEven ? '' : 'lg:order-last'}`}>
             <span
               className="text-[6rem] md:text-[8rem] font-satoshi font-black leading-none select-none"
-              style={{ color: 'rgba(255,30,0,0.15)' }}
+              style={{ color: `rgba(255,30,0,${ghostOpacity})` }}
             >
               {stage.number}
             </span>
@@ -55,7 +57,7 @@ function StageCard({
             </p>
 
             {/* "What Becomes Clear" callout */}
-            <div className="relative bg-surface-02 border border-surface-border border-l-2 border-l-accent rounded-lg px-6 py-5 max-w-[560px]">
+            <div className="relative bg-surface-02 border-l-2 border-l-accent rounded-lg px-6 py-5 max-w-[560px]">
               <p className="text-label-md font-satoshi uppercase tracking-widest text-accent mb-2">
                 What Becomes Clear
               </p>
@@ -272,6 +274,7 @@ export default function MethodPage() {
               stage={stage}
               index={i}
               isLast={i === methodContent.stages.length - 1}
+              ghostOpacity={[0.10, 0.15, 0.20, 0.28][i]}
             />
           ))}
         </div>

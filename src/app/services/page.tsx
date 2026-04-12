@@ -98,7 +98,7 @@ export default function ServicesPage() {
       </section>
 
       {/* ─── 3. Intelligence Layer (moved from 2nd) ─────────────────────── */}
-      <section ref={ilRef} className="py-section-md bg-surface-01">
+      <section ref={ilRef} className="py-section-md bg-surface-base">
         <div className="container-site">
           <motion.div
             initial={{ opacity: 0, y: 32 }}
@@ -113,10 +113,10 @@ export default function ServicesPage() {
               />
               <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-accent/40 via-accent/20 to-transparent" />
               <div className="relative z-10 max-w-[680px]">
-                <h2 className="text-heading-xl font-satoshi text-text-primary mb-6">The Intelligence Layer</h2>
-                <h3 className="text-display-lg font-satoshi text-text-primary mb-6">
+                <span className="block text-label-md font-satoshi uppercase tracking-widest text-accent mb-6">The Intelligence Layer</span>
+                <h2 className="text-display-lg font-satoshi text-text-primary mb-6">
                   {servicesContent.intelligenceLayer.headline}
-                </h3>
+                </h2>
                 <p className="text-body-lg text-text-secondary leading-relaxed mb-4">
                   {servicesContent.intelligenceLayer.body[0]}
                 </p>
@@ -183,7 +183,7 @@ export default function ServicesPage() {
                     <div className="w-1.5 h-1.5 rounded-full bg-accent" />
                   </div>
 
-                  <div className="md:ml-20 group bg-surface-02 border border-surface-border rounded-xl p-6 md:p-8 hover:border-accent/30 hover:shadow-elev-3 transition-[border-color,box-shadow] duration-350 ease-premium">
+                  <div className={`md:ml-20 group bg-surface-02 rounded-xl p-6 md:p-8 hover:border-accent/30 hover:shadow-elev-3 transition-[border-color,box-shadow] duration-350 ease-premium border ${i === 0 ? 'border-accent/20 shadow-elev-2' : 'border-surface-border'}`}>
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
 
                       {/* Header */}

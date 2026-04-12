@@ -50,20 +50,25 @@ export default function WhySystem() {
                 variants={staggerItem}
                 className="relative mb-8 pl-5 border-l-2 border-accent"
               >
-                <p className="text-body-lg text-text-primary font-satoshi leading-snug">
+                <p className="text-heading-xl font-satoshi text-text-primary leading-snug">
                   {builtFor.pullQuote}
                 </p>
               </motion.div>
 
-              {/* Symptom list */}
+              {/* Symptom list — numbered diagnostic format */}
               <motion.ul
                 variants={staggerItem}
-                className="mb-8 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3"
+                className="mb-8 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4"
               >
                 {builtFor.symptoms.map((symptom, i) => (
-                  <li key={i} className="flex items-start gap-2.5">
-                    <span className="mt-[6px] block w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0" />
-                    <span className="text-body-sm text-text-secondary">{symptom}</span>
+                  <li key={i} className="flex items-start gap-3 py-1 border-b border-surface-border last:border-0">
+                    <span
+                      className="flex-shrink-0 mt-px text-label-md font-satoshi font-black tracking-widest leading-tight"
+                      style={{ color: 'rgba(255,30,0,0.30)' }}
+                    >
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                    <span className="text-body-sm text-text-secondary leading-relaxed">{symptom}</span>
                   </li>
                 ))}
               </motion.ul>

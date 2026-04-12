@@ -4,7 +4,6 @@ import { motion, useInView } from 'framer-motion'
 import { useRef, useState } from 'react'
 import Link from 'next/link'
 import { staggerContainer, staggerItem } from '@/lib/motion'
-import SectionLabel from '@/components/ui/SectionLabel'
 import { startNowContent } from '@/lib/content'
 
 const contactInfo = {
@@ -143,6 +142,14 @@ export default function StartNowPage() {
           className="absolute inset-0 pointer-events-none"
           style={{ background: 'radial-gradient(ellipse 50% 50% at 50% 50%, rgba(255,30,0,0.05) 0%, transparent 65%)' }}
         />
+        {/* Ghost word — visual depth, restrained */}
+        <div
+          className="absolute right-0 top-1/2 -translate-y-1/2 select-none pointer-events-none font-satoshi font-black uppercase leading-none hidden lg:block"
+          style={{ fontSize: 'clamp(8rem, 20vw, 18rem)', color: 'rgba(255,30,0,0.04)', letterSpacing: '-0.05em' }}
+          aria-hidden
+        >
+          CLARITY
+        </div>
         <div className="container-site relative z-10">
           <motion.div
             variants={staggerContainer}
@@ -151,7 +158,7 @@ export default function StartNowPage() {
             className="max-w-[680px]"
           >
             <motion.div variants={staggerItem} className="mb-6">
-              <SectionLabel accent>Start Now</SectionLabel>
+              <span className="text-label-md font-satoshi uppercase tracking-widest text-accent">Start Now</span>
             </motion.div>
             <motion.h1
               variants={staggerItem}
@@ -240,7 +247,7 @@ export default function StartNowPage() {
               animate={stepsInView ? 'visible' : 'hidden'}
               className="space-y-0"
             >
-              {startNowContent.steps.map((step) => (
+              {startNowContent.steps.map((step, stepIndex) => (
                 <motion.div
                   key={step.number}
                   variants={staggerItem}
@@ -261,7 +268,10 @@ export default function StartNowPage() {
                       {step.number.replace('STEP ', '')}
                     </div>
 
-                    <div className="relative z-10 max-w-[640px]">
+                    <div className={`relative z-10 max-w-[640px] ${stepIndex === 1 ? 'bg-surface-02 border border-accent/20 rounded-xl px-6 py-6 shadow-elev-2 overflow-hidden' : ''}`}>
+                      {stepIndex === 1 && (
+                        <div className="absolute top-0 left-6 right-6 h-px bg-gradient-to-r from-transparent via-accent/40 to-transparent" />
+                      )}
                       <p className="text-label-md font-satoshi text-accent uppercase tracking-widest mb-3">
                         {step.number}
                       </p>
@@ -335,13 +345,13 @@ export default function StartNowPage() {
           >
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent rounded-t-2xl" />
 
-            <SectionLabel accent className="mb-6">{startNowContent.honesty.label}</SectionLabel>
+            <span className="block text-label-md font-satoshi uppercase tracking-widest text-accent mb-6">{startNowContent.honesty.label}</span>
 
             <div className="space-y-5 mb-8">
               {startNowContent.honesty.items.map((item, i) => (
                 <div key={i} className="flex items-start gap-4">
                   <span className="flex-shrink-0 mt-2 w-1.5 h-1.5 rounded-full bg-accent" />
-                  <p className="text-body-lg text-text-primary">{item}</p>
+                  <p className="text-heading-md font-satoshi text-text-primary">{item}</p>
                 </div>
               ))}
             </div>
@@ -363,7 +373,7 @@ export default function StartNowPage() {
           >
             {/* Section heading */}
             <motion.div variants={staggerItem} className="mb-14">
-              <SectionLabel className="mb-5">Get In Touch</SectionLabel>
+              <span className="block text-label-md font-satoshi uppercase tracking-widest text-text-muted mb-5">Get In Touch</span>
               <h2 className="text-display-lg font-satoshi text-text-primary max-w-[480px]">
                 Start the conversation.
               </h2>
