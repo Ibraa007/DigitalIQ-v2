@@ -1,6 +1,9 @@
+'use client'
+
 import EnginePageLayout from '@/components/engines/EnginePageLayout'
-import { engineContent } from '@/lib/content'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 export default function SocialPage() {
-  return <EnginePageLayout engine={engineContent.social} />
+  const { t } = useLanguage()
+  return <EnginePageLayout engine={t.engineContent.social} />
 }

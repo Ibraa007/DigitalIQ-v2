@@ -4,12 +4,13 @@ import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { staggerContainer, staggerItem } from '@/lib/motion'
 import Button from '@/components/ui/Button'
-import { homeContent } from '@/lib/content'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 export default function MethodPreview() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
-  const { method } = homeContent
+  const { t, isAr } = useLanguage()
+  const { method } = t.homeContent
 
   return (
     <section ref={ref} className="py-section-lg bg-surface-02">
@@ -30,7 +31,10 @@ export default function MethodPreview() {
             variants={staggerItem}
             className="font-satoshi text-text-primary text-heading-xl mb-4"
           >
-            {['Four stages.', 'One sequence.', 'No guesswork.'].map((line, i) => (
+            {(isAr
+              ? ['أربع مراحل.', 'تسلسل واحد.', 'بدون تخمين.']
+              : ['Four stages.', 'One sequence.', 'No guesswork.']
+            ).map((line, i) => (
               <span key={i} className="block">{line}</span>
             ))}
           </motion.h2>

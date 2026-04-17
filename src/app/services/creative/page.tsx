@@ -1,6 +1,9 @@
+'use client'
+
 import EnginePageLayout from '@/components/engines/EnginePageLayout'
-import { engineContent } from '@/lib/content'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 export default function CreativePage() {
-  return <EnginePageLayout engine={engineContent.creative} />
+  const { t } = useLanguage()
+  return <EnginePageLayout engine={t.engineContent.creative} />
 }

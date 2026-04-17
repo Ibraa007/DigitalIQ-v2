@@ -3,12 +3,13 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { staggerContainer, staggerItem } from '@/lib/motion'
-import { homeContent } from '@/lib/content'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 export default function WhatChanges() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
-  const { whatChanges } = homeContent
+  const { t } = useLanguage()
+  const { whatChanges } = t.homeContent
 
   return (
     <section ref={ref} className="py-section-lg bg-surface-02">

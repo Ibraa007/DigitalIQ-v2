@@ -5,13 +5,14 @@ import Navbar from './Navbar'
 import Footer from './Footer'
 import LogoIntro from '@/components/ui/LogoIntro'
 import CustomCursor from '@/components/ui/CustomCursor'
+import { LanguageProvider } from '@/contexts/LanguageContext'
 
 export default function ClientLayout({ children }: { children: React.ReactNode }) {
   const [pageReady, setPageReady] = useState(false)
   const handleIntroComplete = useCallback(() => setPageReady(true), [])
 
   return (
-    <>
+    <LanguageProvider>
       <LogoIntro onComplete={handleIntroComplete} />
       <CustomCursor />
       <div
@@ -23,6 +24,6 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
         <main className="pt-[72px]">{children}</main>
         <Footer />
       </div>
-    </>
+    </LanguageProvider>
   )
 }

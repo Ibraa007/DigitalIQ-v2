@@ -4,12 +4,13 @@ import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { staggerContainer, staggerItem } from '@/lib/motion'
 import Button from '@/components/ui/Button'
-import { homeContent } from '@/lib/content'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 export default function SystemCTA() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
-  const { systemCta } = homeContent
+  const { t } = useLanguage()
+  const { systemCta } = t.homeContent
 
   return (
     <section

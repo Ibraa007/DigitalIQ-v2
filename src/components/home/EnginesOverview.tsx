@@ -5,12 +5,13 @@ import { useRef } from 'react'
 import Link from 'next/link'
 import { staggerContainer, staggerItem } from '@/lib/motion'
 import Button from '@/components/ui/Button'
-import { homeContent } from '@/lib/content'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 export default function EnginesOverview() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
-  const { system } = homeContent
+  const { t, isAr } = useLanguage()
+  const { system } = t.homeContent
 
   return (
     <section ref={ref} className="py-section-lg bg-surface-01">
@@ -32,8 +33,8 @@ export default function EnginesOverview() {
             variants={staggerItem}
             className="text-display-lg font-satoshi text-text-primary"
           >
-            <span className="block">Five engines.</span>
-            <span className="block text-accent">One Intelligence Layer.</span>
+            <span className="block">{isAr ? 'خمس محركات.' : 'Five engines.'}</span>
+            <span className="block text-accent">{isAr ? 'طبقة ذكاء واحدة.' : 'One Intelligence Layer.'}</span>
           </motion.h2>
         </motion.div>
 
@@ -74,7 +75,10 @@ export default function EnginesOverview() {
                 </p>
 
                 <div className="flex flex-col gap-3">
-                  {['Decisions stay connected.', 'Priorities stay clear.', 'Execution stays aligned.'].map((line, i) => (
+                  {(isAr
+                    ? ['القرارات بتفضل متصلة.', 'الأولويات بتفضل واضحة.', 'التنفيذ بيفضل متوافق.']
+                    : ['Decisions stay connected.', 'Priorities stay clear.', 'Execution stays aligned.']
+                  ).map((line, i) => (
                     <div key={i} className="flex items-center gap-3">
                       <span className="block w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0" />
                       <span className="text-body-sm text-text-secondary">{line}</span>
@@ -95,7 +99,7 @@ export default function EnginesOverview() {
                 <path d="M2 7h10M8 3l4 4-4 4" stroke="rgba(255,30,0,0.4)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
               <span className="text-label-md text-text-muted font-satoshi uppercase tracking-widest">
-                Powered by
+                {isAr ? 'مدعوم بـ' : 'Powered by'}
               </span>
             </div>
           </motion.div>

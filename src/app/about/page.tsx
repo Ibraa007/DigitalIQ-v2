@@ -5,13 +5,11 @@ import { useRef } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { staggerContainer, staggerItem } from '@/lib/motion'
-import { aboutContent } from '@/lib/content'
 import { BrandName, BrandText } from '@/components/ui/BrandText'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 // ─── Origin Panel ─────────────────────────────────────────────────────────────
-// Each panel gets: oversized bg label, headline+body left, pull quote as visual
-// display moment right (when pull quote exists), else full-width prose.
-function OriginPanel({ panel, index }: { panel: typeof aboutContent.origin[0]; index: number }) {
+function OriginPanel({ panel, index }: { panel: { label: string; headline: string; body: string; pullQuote?: string }; index: number }) {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
 
@@ -69,6 +67,8 @@ function OriginPanel({ panel, index }: { panel: typeof aboutContent.origin[0]; i
 
 // ─── About Page ───────────────────────────────────────────────────────────────
 export default function AboutPage() {
+  const { t, isAr } = useLanguage()
+  const aboutContent = t.aboutContent
   const heroRef = useRef(null)
   const heroInView = useInView(heroRef, { once: true })
   const founderRef = useRef(null)
@@ -96,7 +96,7 @@ export default function AboutPage() {
             className="max-w-[720px]"
           >
             <motion.div variants={staggerItem} className="mb-7">
-              <span className="text-label-md font-satoshi uppercase tracking-widest text-accent">About <BrandName /></span>
+              <span className="text-label-md font-satoshi uppercase tracking-widest text-accent">{isAr ? 'عن' : 'About'} <BrandName /></span>
             </motion.div>
             <motion.h1
               variants={staggerItem}
@@ -182,7 +182,7 @@ export default function AboutPage() {
                   <p className="text-label-lg font-satoshi text-text-primary uppercase tracking-widest">
                     {aboutContent.founder.name}
                   </p>
-                  <p className="text-label-md text-text-muted mt-0.5">Founder, <BrandName /></p>
+                  <p className="text-label-md text-text-muted mt-0.5">{isAr ? 'المؤسس،' : 'Founder,'} <BrandName /></p>
                 </div>
               </div>
             </motion.div>
@@ -283,18 +283,20 @@ export default function AboutPage() {
               <div className="w-12 h-px bg-accent mx-auto mb-10" />
 
               <p className="text-body-lg text-text-secondary max-w-[520px] mx-auto mb-10 leading-relaxed">
-                {aboutContent.standard.closing.replace('That standard became DigitalIQ.', '').trim()}
+                {isAr
+                  ? aboutContent.standard.closing.replace('المعيار ده بقى DigitalIQ.', '').trim()
+                  : aboutContent.standard.closing.replace('That standard became DigitalIQ.', '').trim()}
               </p>
 
               <h2 className="text-display-xl font-satoshi text-text-primary mb-12">
-                That standard became <BrandName />.
+                {isAr ? 'المعيار ده بقى' : 'That standard became'} <BrandName />.
               </h2>
 
               <Link
                 href="/start-now"
                 className="inline-flex items-center gap-2 px-7 py-4 bg-accent text-[#080808] text-label-lg font-satoshi uppercase tracking-widest rounded-lg hover:bg-accent-hover transition-colors duration-250"
               >
-                Start the Diagnosis
+                {isAr ? 'ابدأ التشخيص' : 'Start the Diagnosis'}
                 <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden>
                   <path d="M2 11L11 2M11 2H4.5M11 2V8.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>

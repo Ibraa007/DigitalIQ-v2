@@ -7,7 +7,7 @@ import { staggerContainer, staggerItem } from '@/lib/motion'
 import SectionLabel from '@/components/ui/SectionLabel'
 import Button from '@/components/ui/Button'
 import type { EngineContent } from '@/lib/content'
-import { startNowContent } from '@/lib/content'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 // Engine number map — used in hero decoration and label
 const engineNumbers: Record<string, string> = {
@@ -55,9 +55,11 @@ function StaggerList({ children, className = '' }: { children: React.ReactNode; 
 }
 
 export default function EnginePageLayout({ engine }: EnginePageLayoutProps) {
+  const { t, isAr } = useLanguage()
   const heroRef = useRef(null)
   const heroInView = useInView(heroRef, { once: true })
   const num = engineNumbers[engine.id] ?? ''
+  const startNowContent = t.startNowContent
 
   return (
     <>
@@ -90,11 +92,11 @@ export default function EnginePageLayout({ engine }: EnginePageLayoutProps) {
                 href="/services"
                 className="text-label-md font-satoshi text-text-muted uppercase tracking-widest hover:text-accent transition-colors duration-250"
               >
-                Services
+                {isAr ? 'الخدمات' : 'Services'}
               </Link>
               <span className="text-text-muted opacity-40">/</span>
               <span className="text-label-md font-satoshi text-accent uppercase tracking-widest">
-                Engine {num}
+                {isAr ? `المحرك ${num}` : `Engine ${num}`}
               </span>
             </motion.div>
 
@@ -123,8 +125,8 @@ export default function EnginePageLayout({ engine }: EnginePageLayoutProps) {
             </motion.p>
 
             <motion.div variants={staggerItem} className="flex flex-wrap gap-4">
-              <Button href="/start-now" variant="primary">Start the Diagnosis</Button>
-              <Button href="/start-now" variant="ghost">Talk to Our Team</Button>
+              <Button href="/start-now" variant="primary">{isAr ? 'ابدأ التشخيص' : 'Start the Diagnosis'}</Button>
+              <Button href="/start-now" variant="ghost">{isAr ? 'كلم فريقنا' : 'Talk to Our Team'}</Button>
             </motion.div>
           </motion.div>
         </div>
@@ -136,7 +138,7 @@ export default function EnginePageLayout({ engine }: EnginePageLayoutProps) {
           <AnimatedSection>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
               <h2 className="text-heading-xl font-satoshi text-text-primary lg:sticky lg:top-28">
-                What It Is
+                {isAr ? 'إيه ده؟' : 'What It Is'}
               </h2>
               <div className="space-y-5">
                 {engine.whatItIs.body.map((para, i) => (
@@ -164,7 +166,7 @@ export default function EnginePageLayout({ engine }: EnginePageLayoutProps) {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
               <div className="lg:sticky lg:top-28">
                 <h2 className="text-heading-xl font-satoshi text-text-primary mb-6">
-                  How It Operates
+                  {isAr ? 'إزاي بيشتغل؟' : 'How It Operates'}
                 </h2>
                 <p className="text-body-lg text-text-secondary leading-relaxed">
                   {engine.howItOperates.intro}
@@ -189,7 +191,7 @@ export default function EnginePageLayout({ engine }: EnginePageLayoutProps) {
           <AnimatedSection>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
               <h2 className="text-heading-xl font-satoshi text-text-primary lg:sticky lg:top-28">
-                When This Engine Becomes Necessary
+                {isAr ? 'امتى المحرك ده بيبقى ضروري' : 'When This Engine Becomes Necessary'}
               </h2>
               <StaggerList>
                 {engine.builtFor.map((item, i) => (
@@ -211,7 +213,7 @@ export default function EnginePageLayout({ engine }: EnginePageLayoutProps) {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
               <div className="lg:sticky lg:top-28">
                 <h2 className="text-heading-xl font-satoshi text-text-primary mb-6">
-                  What This Engine Helps Create
+                  {isAr ? 'إيه اللي المحرك ده بيساعد يخلق' : 'What This Engine Helps Create'}
                 </h2>
                 <p className="text-body-lg text-text-secondary leading-relaxed">
                   {engine.whatItCreates.intro}
@@ -241,7 +243,7 @@ export default function EnginePageLayout({ engine }: EnginePageLayoutProps) {
           <AnimatedSection>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
               <h2 className="text-heading-xl font-satoshi text-text-primary lg:sticky lg:top-28">
-                Why It Matters
+                {isAr ? 'ليه ده مهم' : 'Why It Matters'}
               </h2>
               <div>
                 <div className="space-y-5 mb-10">
@@ -270,7 +272,7 @@ export default function EnginePageLayout({ engine }: EnginePageLayoutProps) {
           <div className="container-site">
             <AnimatedSection>
               <h2 className="text-heading-xl font-satoshi text-text-primary mb-12">
-                Questions That Usually Come Up
+                {isAr ? 'أسئلة بتيجي عادةً' : 'Questions That Usually Come Up'}
               </h2>
               <div className="space-y-4 max-w-[760px]">
                 {engine.faq.map((item, i) => (
@@ -308,7 +310,7 @@ export default function EnginePageLayout({ engine }: EnginePageLayoutProps) {
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/20 to-transparent" />
         <div className="container-site relative z-10">
           <AnimatedSection className="max-w-[640px]">
-            <SectionLabel accent className="mb-6">Begin Here</SectionLabel>
+            <SectionLabel accent className="mb-6">{isAr ? 'ابدأ من هنا' : 'Begin Here'}</SectionLabel>
             <h2 className="text-display-lg font-satoshi text-text-primary mb-4">
               {startNowContent.hero.headline}
             </h2>
@@ -316,8 +318,8 @@ export default function EnginePageLayout({ engine }: EnginePageLayoutProps) {
               {startNowContent.hero.body}
             </p>
             <div className="flex flex-wrap gap-4">
-              <Button href="/start-now" variant="primary" size="lg">Start the Diagnosis</Button>
-              <Button href="/start-now" variant="ghost" size="lg">Talk to Our Team</Button>
+              <Button href="/start-now" variant="primary" size="lg">{isAr ? 'ابدأ التشخيص' : 'Start the Diagnosis'}</Button>
+              <Button href="/start-now" variant="ghost" size="lg">{isAr ? 'كلم فريقنا' : 'Talk to Our Team'}</Button>
             </div>
           </AnimatedSection>
         </div>

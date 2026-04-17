@@ -5,23 +5,10 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
-
-const engineLinks = [
-  { label: 'Performance Engine', href: '/services/performance', number: '01' },
-  { label: 'Creative Engine', href: '/services/creative', number: '02' },
-  { label: 'Social Engine', href: '/services/social', number: '03' },
-  { label: 'Influence Engine', href: '/services/influence', number: '04' },
-  { label: 'AI & Automation Engine', href: '/services/ai-automation', number: '05' },
-]
-
-const navLinks = [
-  { label: 'Home', href: '/' },
-  { label: 'About', href: '/about' },
-  { label: 'Method', href: '/method' },
-  { label: 'Services', href: '/services', hasDropdown: true },
-]
+import { useLanguage } from '@/contexts/LanguageContext'
 
 export default function Navbar() {
+  const { lang, toggle, isAr } = useLanguage()
   const [scrolled, setScrolled] = useState(false)
   const [visible, setVisible] = useState(true)
   const [servicesOpen, setServicesOpen] = useState(false)
@@ -30,11 +17,25 @@ export default function Navbar() {
   const dropdownRef = useRef<HTMLDivElement>(null)
   const lastScrollY = useRef(0)
 
+  const engineLinks = [
+    { label: isAr ? 'محرك الأداء' : 'Performance Engine', href: '/services/performance', number: '01' },
+    { label: isAr ? 'محرك الكريتيف' : 'Creative Engine', href: '/services/creative', number: '02' },
+    { label: isAr ? 'محرك السوشيال' : 'Social Engine', href: '/services/social', number: '03' },
+    { label: isAr ? 'محرك الإنفلوينسر' : 'Influence Engine', href: '/services/influence', number: '04' },
+    { label: isAr ? 'محرك الـ AI والأتمتة' : 'AI & Automation Engine', href: '/services/ai-automation', number: '05' },
+  ]
+
+  const navLinks = [
+    { label: isAr ? 'الرئيسية' : 'Home', href: '/' },
+    { label: isAr ? 'عن DigitalIQ' : 'About', href: '/about' },
+    { label: isAr ? 'المنهجية' : 'Method', href: '/method' },
+    { label: isAr ? 'الخدمات' : 'Services', href: '/services', hasDropdown: true },
+  ]
+
   useEffect(() => {
     const onScroll = () => {
       const current = window.scrollY
       setScrolled(current > 60)
-      // Show when scrolling up or near top; hide when scrolling down
       if (current < 10) {
         setVisible(true)
       } else if (current < lastScrollY.current) {
@@ -140,8 +141,10 @@ export default function Navbar() {
                           href="/services"
                           className="block px-4 py-3 rounded-lg text-text-secondary hover:text-text-primary hover:bg-surface-04 transition-colors duration-200 text-body-sm font-inter mb-1"
                         >
-                          <span className="block text-label-md text-accent uppercase tracking-widest mb-0.5">Overview</span>
-                          All Services
+                          <span className="block text-label-md text-accent uppercase tracking-widest mb-0.5">
+                            {isAr ? 'نظرة عامة' : 'Overview'}
+                          </span>
+                          {isAr ? 'كل الخدمات' : 'All Services'}
                         </Link>
                         <div className="h-px bg-surface-border my-2" />
                         {engineLinks.map((engine) => (
@@ -185,6 +188,15 @@ export default function Navbar() {
             )
           )}
 
+          {/* Language toggle */}
+          <button
+            onClick={toggle}
+            className="text-label-lg font-satoshi uppercase tracking-widest text-text-muted hover:text-text-primary transition-colors duration-250 border border-surface-border px-3 py-1 rounded-md hover:border-text-muted"
+            aria-label={isAr ? 'Switch to English' : 'التبديل للعربية'}
+          >
+            {lang === 'en' ? 'ع' : 'EN'}
+          </button>
+
           <Link
             href="/start-now"
             className={[
@@ -194,33 +206,42 @@ export default function Navbar() {
                 : 'border-accent text-accent hover:bg-accent hover:text-text-inverse',
             ].join(' ')}
           >
-            Start Now
+            {isAr ? 'ابدأ' : 'Start Now'}
           </Link>
         </nav>
 
         {/* Mobile hamburger */}
-        <button
-          onClick={() => setMobileOpen((v) => !v)}
-          className="md:hidden flex flex-col gap-1.5 p-2 text-text-primary"
-          aria-label="Toggle menu"
-          aria-expanded={mobileOpen}
-        >
-          <motion.span
-            animate={mobileOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
-            transition={{ duration: 0.25 }}
-            className="block w-6 h-px bg-current"
-          />
-          <motion.span
-            animate={mobileOpen ? { opacity: 0 } : { opacity: 1 }}
-            transition={{ duration: 0.2 }}
-            className="block w-6 h-px bg-current"
-          />
-          <motion.span
-            animate={mobileOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
-            transition={{ duration: 0.25 }}
-            className="block w-6 h-px bg-current"
-          />
-        </button>
+        <div className="md:hidden flex items-center gap-3">
+          <button
+            onClick={toggle}
+            className="text-label-md font-satoshi text-text-muted hover:text-text-primary transition-colors duration-250 border border-surface-border px-2 py-1 rounded"
+            aria-label={isAr ? 'Switch to English' : 'التبديل للعربية'}
+          >
+            {lang === 'en' ? 'ع' : 'EN'}
+          </button>
+          <button
+            onClick={() => setMobileOpen((v) => !v)}
+            className="flex flex-col gap-1.5 p-2 text-text-primary"
+            aria-label="Toggle menu"
+            aria-expanded={mobileOpen}
+          >
+            <motion.span
+              animate={mobileOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
+              transition={{ duration: 0.25 }}
+              className="block w-6 h-px bg-current"
+            />
+            <motion.span
+              animate={mobileOpen ? { opacity: 0 } : { opacity: 1 }}
+              transition={{ duration: 0.2 }}
+              className="block w-6 h-px bg-current"
+            />
+            <motion.span
+              animate={mobileOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
+              transition={{ duration: 0.25 }}
+              className="block w-6 h-px bg-current"
+            />
+          </button>
+        </div>
       </div>
 
       {/* Mobile drawer */}
@@ -234,23 +255,23 @@ export default function Navbar() {
             className="md:hidden absolute top-full left-0 right-0 bg-surface-02/95 backdrop-blur-xl border-b border-surface-border"
           >
             <nav className="container-site py-6 flex flex-col gap-1">
-              {[...navLinks, { label: 'About', href: '/about' }]
-                .filter((l, i, arr) => arr.findIndex((x) => x.href === l.href) === i)
-                .map((link) => (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    className={[
-                      'py-3 text-heading-md font-satoshi border-b border-surface-border transition-colors duration-200',
-                      isActive(link.href) ? 'text-accent' : 'text-text-primary',
-                    ].join(' ')}
-                  >
-                    {link.label}
-                  </Link>
-                ))}
+              {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={[
+                    'py-3 text-heading-md font-satoshi border-b border-surface-border transition-colors duration-200',
+                    isActive(link.href) ? 'text-accent' : 'text-text-primary',
+                  ].join(' ')}
+                >
+                  {link.label}
+                </Link>
+              ))}
 
               <div className="pt-2 pb-1">
-                <p className="text-label-md text-text-muted uppercase tracking-widest mb-3">Services</p>
+                <p className="text-label-md text-text-muted uppercase tracking-widest mb-3">
+                  {isAr ? 'الخدمات' : 'Services'}
+                </p>
                 {engineLinks.map((engine) => (
                   <Link
                     key={engine.href}
@@ -267,7 +288,7 @@ export default function Navbar() {
                 href="/start-now"
                 className="mt-4 py-3 text-center text-label-lg font-satoshi uppercase tracking-widest bg-accent text-text-inverse rounded-md"
               >
-                Start Now
+                {isAr ? 'ابدأ' : 'Start Now'}
               </Link>
             </nav>
           </motion.div>

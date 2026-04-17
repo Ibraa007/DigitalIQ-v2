@@ -6,9 +6,11 @@ import Link from 'next/link'
 import { staggerContainer, staggerItem } from '@/lib/motion'
 import SectionLabel from '@/components/ui/SectionLabel'
 import Button from '@/components/ui/Button'
-import { servicesContent } from '@/lib/content'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 export default function ServicesPage() {
+  const { t, isAr } = useLanguage()
+  const servicesContent = t.servicesContent
   const heroRef = useRef(null)
   const heroInView = useInView(heroRef, { once: true })
   const howRef = useRef(null)
@@ -40,7 +42,7 @@ export default function ServicesPage() {
             className="max-w-[720px]"
           >
             <motion.div variants={staggerItem} className="mb-7">
-              <SectionLabel accent>Services</SectionLabel>
+              <SectionLabel accent>{isAr ? 'الخدمات' : 'Services'}</SectionLabel>
             </motion.div>
             <motion.h1
               variants={staggerItem}
@@ -85,7 +87,7 @@ export default function ServicesPage() {
               variants={staggerItem}
               className="text-heading-xl font-satoshi text-text-primary"
             >
-              How The Model Works
+              {isAr ? 'إزاي النموذج بيشتغل' : 'How The Model Works'}
             </motion.h2>
             <motion.p
               variants={staggerItem}
@@ -113,7 +115,7 @@ export default function ServicesPage() {
               />
               <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-accent/40 via-accent/20 to-transparent" />
               <div className="relative z-10 max-w-[680px]">
-                <span className="block text-label-md font-satoshi uppercase tracking-widest text-accent mb-6">The Intelligence Layer</span>
+                <span className="block text-label-md font-satoshi uppercase tracking-widest text-accent mb-6">{isAr ? 'طبقة الذكاء' : 'The Intelligence Layer'}</span>
                 <h2 className="text-display-lg font-satoshi text-text-primary mb-6">
                   {servicesContent.intelligenceLayer.headline}
                 </h2>
@@ -137,7 +139,7 @@ export default function ServicesPage() {
           {/* Section headline + engine strip */}
           <div className="mb-12">
             <h2 className="text-heading-xl font-satoshi text-text-primary mb-8">
-              Five Engines. Five Roles. One Operating Logic.
+              {isAr ? 'خمس محركات. خمس أدوار. منطق تشغيلي واحد.' : 'Five Engines. Five Roles. One Operating Logic.'}
             </h2>
 
             {/* Engine overview strip */}
@@ -215,7 +217,7 @@ export default function ServicesPage() {
                       <div className="lg:col-span-3 flex flex-col justify-between gap-4">
                         <div className="bg-surface-03 rounded-lg p-4 border-l-2 border-accent/40">
                           <p className="text-label-md font-satoshi text-accent uppercase tracking-widest mb-1">
-                            Impact
+                            {isAr ? 'التأثير' : 'Impact'}
                           </p>
                           <p className="text-body-sm text-text-secondary">{engine.impact}</p>
                         </div>
@@ -223,7 +225,7 @@ export default function ServicesPage() {
                           href={engine.href}
                           className="inline-flex items-center gap-2 text-label-lg font-satoshi uppercase tracking-widest text-text-secondary hover:text-accent transition-colors duration-250"
                         >
-                          Learn More
+                          {isAr ? 'اعرف أكتر' : 'Learn More'}
                           <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden className="text-accent">
                             <path d="M2 11L11 2M11 2H4.5M11 2V8.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                           </svg>
@@ -250,7 +252,7 @@ export default function ServicesPage() {
               variants={staggerItem}
               className="text-heading-xl font-satoshi text-text-primary mb-6"
             >
-              Why The Model Is Built This Way
+              {isAr ? 'ليه النموذج اتبنى كده' : 'Why The Model Is Built This Way'}
             </motion.h2>
             <motion.p
               variants={staggerItem}
@@ -285,7 +287,7 @@ export default function ServicesPage() {
               variants={staggerItem}
               className="text-heading-xl font-satoshi text-text-primary mb-12"
             >
-              The Result
+              {isAr ? 'النتيجة' : 'The Result'}
             </motion.h2>
             <motion.div variants={staggerItem} className="space-y-0">
               {servicesContent.result.items.map((item, i) => (
@@ -325,7 +327,7 @@ export default function ServicesPage() {
               variants={staggerItem}
               className="text-heading-xl font-satoshi text-text-primary mb-6"
             >
-              How We Decide What You Need
+              {isAr ? 'إزاي بنقرر محتاج إيه' : 'How We Decide What You Need'}
             </motion.h2>
 
             {/* Strong subheadline */}

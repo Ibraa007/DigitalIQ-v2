@@ -1,21 +1,24 @@
+'use client'
+
 import Link from 'next/link'
 import Image from 'next/image'
 import { BrandName } from '@/components/ui/BrandText'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 const engineLinks = [
-  { label: 'Performance Engine', href: '/services/performance' },
-  { label: 'Creative Engine', href: '/services/creative' },
-  { label: 'Social Engine', href: '/services/social' },
-  { label: 'Influence Engine', href: '/services/influence' },
-  { label: 'AI & Automation Engine', href: '/services/ai-automation' },
+  { labelEn: 'Performance Engine', labelAr: 'محرك الأداء', href: '/services/performance' },
+  { labelEn: 'Creative Engine', labelAr: 'محرك الكريتيف', href: '/services/creative' },
+  { labelEn: 'Social Engine', labelAr: 'محرك السوشيال', href: '/services/social' },
+  { labelEn: 'Influence Engine', labelAr: 'محرك الإنفلوينسر', href: '/services/influence' },
+  { labelEn: 'AI & Automation Engine', labelAr: 'محرك الـ AI والأتمتة', href: '/services/ai-automation' },
 ]
 
 const pageLinks = [
-  { label: 'Home', href: '/' },
-  { label: 'About', href: '/about' },
-  { label: 'Method', href: '/method' },
-  { label: 'Services', href: '/services' },
-  { label: 'Start Now', href: '/start-now' },
+  { labelEn: 'Home', labelAr: 'الرئيسية', href: '/' },
+  { labelEn: 'About', labelAr: 'عن DigitalIQ', href: '/about' },
+  { labelEn: 'Method', labelAr: 'المنهجية', href: '/method' },
+  { labelEn: 'Services', labelAr: 'الخدمات', href: '/services' },
+  { labelEn: 'Start Now', labelAr: 'ابدأ دلوقتي', href: '/start-now' },
 ]
 
 const socialLinks = [
@@ -58,6 +61,8 @@ const socialLinks = [
 ]
 
 export default function Footer() {
+  const { isAr } = useLanguage()
+
   return (
     <footer className="relative border-t border-surface-border mt-section-lg">
       {/* Accent rule at very top */}
@@ -65,7 +70,7 @@ export default function Footer() {
 
       <div className="container-site py-16 md:py-20">
 
-        {/* Top row — Pages | Services | Contact | Start Here */}
+        {/* Top row */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-8">
 
           {/* Pages col */}
@@ -73,7 +78,7 @@ export default function Footer() {
             <div className="flex items-center gap-2.5 mb-5">
               <span className="block w-4 h-px bg-accent flex-shrink-0" />
               <p className="text-label-md text-text-muted uppercase tracking-widest font-satoshi">
-                Pages
+                {isAr ? 'الصفحات' : 'Pages'}
               </p>
             </div>
             <ul className="space-y-3">
@@ -83,7 +88,7 @@ export default function Footer() {
                     href={link.href}
                     className="group relative inline-block text-body-sm text-text-secondary hover:text-text-primary transition-colors duration-250"
                   >
-                    {link.label}
+                    {isAr ? link.labelAr : link.labelEn}
                     <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-accent group-hover:w-full transition-[width] duration-350 ease-premium" />
                   </Link>
                 </li>
@@ -96,7 +101,7 @@ export default function Footer() {
             <div className="flex items-center gap-2.5 mb-5">
               <span className="block w-4 h-px bg-accent flex-shrink-0" />
               <p className="text-label-md text-text-muted uppercase tracking-widest font-satoshi">
-                Services
+                {isAr ? 'الخدمات' : 'Services'}
               </p>
             </div>
             <ul className="space-y-3">
@@ -106,7 +111,7 @@ export default function Footer() {
                     href={link.href}
                     className="group relative inline-block text-body-sm text-text-secondary hover:text-text-primary transition-colors duration-250"
                   >
-                    {link.label}
+                    {isAr ? link.labelAr : link.labelEn}
                     <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-accent group-hover:w-full transition-[width] duration-350 ease-premium" />
                   </Link>
                 </li>
@@ -119,7 +124,7 @@ export default function Footer() {
             <div className="flex items-center gap-2.5 mb-5">
               <span className="block w-4 h-px bg-accent flex-shrink-0" />
               <p className="text-label-md text-text-muted uppercase tracking-widest font-satoshi">
-                Contact
+                {isAr ? 'تواصل' : 'Contact'}
               </p>
             </div>
             <ul className="space-y-4">
@@ -163,7 +168,9 @@ export default function Footer() {
                     <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
                     <circle cx="12" cy="10" r="3" />
                   </svg>
-                  <span className="leading-snug">3A El-Amal Street,<br />El Shiekh Zayed, Giza</span>
+                  <span className="leading-snug">
+                    {isAr ? 'شارع الأمل 3أ،\nالشيخ زايد، الجيزة' : '3A El-Amal Street,\nEl Shiekh Zayed, Giza'}
+                  </span>
                 </div>
               </li>
             </ul>
@@ -174,17 +181,17 @@ export default function Footer() {
             <div className="flex items-center gap-2.5 mb-5">
               <span className="block w-4 h-px bg-accent flex-shrink-0" />
               <p className="text-label-md text-text-muted uppercase tracking-widest font-satoshi">
-                Start Here
+                {isAr ? 'ابدأ من هنا' : 'Start Here'}
               </p>
             </div>
             <p className="text-body-sm text-text-secondary mb-6 leading-relaxed">
-              Every serious growth system begins with clarity.
+              {isAr ? 'كل منظومة نمو جدية بتبدأ بالوضوح.' : 'Every serious growth system begins with clarity.'}
             </p>
             <Link
               href="/start-now"
               className="inline-flex items-center gap-2 px-5 py-2.5 text-label-lg font-satoshi uppercase tracking-widest bg-accent text-text-inverse rounded-md hover:bg-accent-hover transition-colors duration-250"
             >
-              Start Now
+              {isAr ? 'ابدأ' : 'Start Now'}
               <svg width="11" height="11" viewBox="0 0 11 11" fill="none" aria-hidden>
                 <path d="M2 9L9 2M9 2H3.5M9 2V7.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
@@ -194,10 +201,8 @@ export default function Footer() {
 
         {/* Logo — centered below the columns with full-width separator */}
         <div className="relative flex flex-col items-center mt-20">
-          {/* Separator */}
           <div className="w-full h-px bg-gradient-to-r from-transparent via-surface-border to-transparent mb-16" />
 
-          {/* Ambient glow behind logo */}
           <div
             className="absolute pointer-events-none"
             style={{
@@ -206,8 +211,7 @@ export default function Footer() {
               transform: 'translate(-50%, -50%)',
               width: '700px',
               height: '320px',
-              background:
-                'radial-gradient(ellipse 55% 50% at 50% 50%, rgba(255,30,0,0.05) 0%, transparent 70%)',
+              background: 'radial-gradient(ellipse 55% 50% at 50% 50%, rgba(255,30,0,0.05) 0%, transparent 70%)',
             }}
           />
 
@@ -221,12 +225,10 @@ export default function Footer() {
             />
           </Link>
 
-          {/* Brand tagline */}
           <p className="mt-5 text-label-md text-text-muted font-satoshi tracking-widest text-center">
-            The structure behind marketing that compounds.
+            {isAr ? 'الهيكل اللي التسويق بيتاكمي عليه.' : 'The structure behind marketing that compounds.'}
           </p>
 
-          {/* Social links */}
           <div className="flex items-center gap-3 mt-8 mb-10">
             {socialLinks.map((social) => (
               <Link
@@ -246,10 +248,10 @@ export default function Footer() {
         {/* Bottom strip */}
         <div className="pt-6 border-t border-surface-border flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
           <p className="text-label-md text-text-muted">
-            © {new Date().getFullYear()} <BrandName />. All rights reserved.
+            © {new Date().getFullYear()} <BrandName />. {isAr ? 'جميع الحقوق محفوظة.' : 'All rights reserved.'}
           </p>
           <p className="text-label-md text-text-muted font-satoshi">
-            Built on structure.
+            {isAr ? 'مبني على هيكل.' : 'Built on structure.'}
           </p>
         </div>
       </div>

@@ -158,3 +158,32 @@ img {
   pointer-events: none;
   border-radius: inherit;
 }
+
+/* ── Arabic / RTL ─────────────────────────────────────────────────────────────
+   Applied when document.dir = 'rtl' (set by LanguageContext on AR toggle)
+────────────────────────────────────────────────────────────────────────────── */
+
+[dir="rtl"] body {
+  font-family: 'Cairo', system-ui, sans-serif;
+}
+
+[dir="rtl"] .font-satoshi {
+  font-family: 'Cairo', system-ui, sans-serif;
+}
+
+[dir="rtl"] .font-inter {
+  font-family: 'Cairo', system-ui, sans-serif;
+}
+
+/* Flip accent underline hover animation for RTL */
+[dir="rtl"] .group:hover span[class*="group-hover:w-full"] {
+  left: auto;
+  right: 0;
+}
+
+/* Flip the accent line in footer/nav labels */
+[dir="rtl"] .tracking-widest {
+  letter-spacing: 0;
+}
+
+/* Container padding stays symmetric — no change needed */

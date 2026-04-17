@@ -3,12 +3,17 @@
 import { motion } from 'framer-motion'
 import { staggerContainer, staggerItem } from '@/lib/motion'
 import Button from '@/components/ui/Button'
-import { homeContent } from '@/lib/content'
+import { useLanguage } from '@/contexts/LanguageContext'
 
-const HEADLINE_LINES = [
+const HEADLINE_LINES_EN = [
   'Marketing without',
   'structure does not',
   'compound.',
+]
+
+const HEADLINE_LINES_AR = [
+  'التسويق بدون هيكل',
+  'ما بيتراكمش.',
 ]
 
 // ─── Floating shape ────────────────────────────────────────────────────────────
@@ -95,7 +100,9 @@ function FloatingShape({
 }
 
 export default function Hero() {
-  const { hero } = homeContent
+  const { t, isAr } = useLanguage()
+  const { hero } = t.homeContent
+  const HEADLINE_LINES = isAr ? HEADLINE_LINES_AR : HEADLINE_LINES_EN
 
   return (
     <section className="relative min-h-[100svh] flex items-center overflow-hidden bg-surface-base">

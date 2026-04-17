@@ -5,7 +5,8 @@ import { useRef, Fragment } from 'react'
 import { staggerContainer, staggerItem } from '@/lib/motion'
 import Button from '@/components/ui/Button'
 import { BrandName } from '@/components/ui/BrandText'
-import { methodContent } from '@/lib/content'
+import { useLanguage } from '@/contexts/LanguageContext'
+import type { methodContent as MethodContentType } from '@/lib/content'
 
 // ─── Stage Card ───────────────────────────────────────────────────────────────
 function StageCard({
@@ -13,11 +14,13 @@ function StageCard({
   index,
   isLast,
   ghostOpacity,
+  outcomeLabel,
 }: {
-  stage: typeof methodContent.stages[0]
+  stage: (typeof MethodContentType)['stages'][0]
   index: number
   isLast: boolean
   ghostOpacity: number
+  outcomeLabel: string
 }) {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
@@ -59,7 +62,7 @@ function StageCard({
             {/* "What Becomes Clear" callout */}
             <div className="relative bg-surface-02 border-l-2 border-l-accent rounded-lg px-6 py-5 max-w-[560px]">
               <p className="text-label-md font-satoshi uppercase tracking-widest text-accent mb-2">
-                What Becomes Clear
+                {outcomeLabel}
               </p>
               <p className="text-body-md text-text-secondary leading-relaxed">
                 {stage.outcome}
@@ -99,6 +102,9 @@ function StageCard({
 
 // ─── Method Page ──────────────────────────────────────────────────────────────
 export default function MethodPage() {
+  const { t, isAr } = useLanguage()
+  const methodContent = t.methodContent
+
   const heroRef = useRef(null)
   const heroInView = useInView(heroRef, { once: true })
   const whyRef = useRef(null)
@@ -108,17 +114,25 @@ export default function MethodPage() {
   const resultRef = useRef(null)
   const resultInView = useInView(resultRef, { once: true, margin: '-80px' })
 
-  // "Why" section content — structured for display
-  const whyProblems = [
+  const whyProblems = isAr ? [
+    'التنفيذ بيبدأ قبل ما التشخيص يكتمل.',
+    'الميزانيات بتتصرف قبل ما الأولويات تتضح.',
+    'المحتوى بيتنتج قبل ما الرسالة تتوافق.',
+    'الفرق بتتحرك قبل ما المنظومة تحتهم جاهزة تصمد.',
+  ] : [
     'Execution starts before the diagnosis is complete.',
     'Budgets are spent before priorities are clear.',
     'Content is produced before messaging is aligned.',
     'Teams move before the system underneath them is ready to hold.',
   ]
-  const whySolution = [
+  const whySolution = isAr ? [
+    { left: 'مش بنبدأ بالناتج.', right: 'بنبدأ بالحقيقة.' },
+    { left: 'مش بنبدأ بالتكتيكات.', right: 'بنبدأ بالوضوح.' },
+  ] : [
     { left: 'We do not begin with output.', right: 'We begin with truth.' },
     { left: 'We do not begin with tactics.', right: 'We begin with clarity.' },
   ]
+  const outcomeLabel = isAr ? 'اللي بيتوضح' : 'What Becomes Clear'
 
   return (
     <>
@@ -144,13 +158,13 @@ export default function MethodPage() {
             className="max-w-[720px]"
           >
             <motion.div variants={staggerItem} className="mb-7">
-              <span className="text-label-md font-satoshi uppercase tracking-widest text-accent">The Method</span>
+              <span className="text-label-md font-satoshi uppercase tracking-widest text-accent">{isAr ? 'المنهجية' : 'The Method'}</span>
             </motion.div>
             <motion.h1 variants={staggerItem} className="text-display-lg font-satoshi text-text-primary mb-2">
-              Growth does not compound by accident.
+              {methodContent.hero.headline}
             </motion.h1>
             <motion.p variants={staggerItem} className="text-display-lg font-satoshi text-accent mb-8">
-              It compounds by sequence.
+              {methodContent.hero.headlineLine2}
             </motion.p>
             <motion.div variants={staggerItem} className="w-12 h-px bg-accent mb-8" />
             <motion.p variants={staggerItem} className="text-body-lg text-text-secondary max-w-[560px] leading-relaxed">
@@ -174,7 +188,7 @@ export default function MethodPage() {
               variants={staggerItem}
               className="text-heading-xl font-satoshi text-text-primary mb-10"
             >
-              Why The Method Exists
+              {isAr ? 'ليه المنهجية موجودة' : 'Why The Method Exists'}
             </motion.h2>
 
             {/* Lead */}
@@ -182,7 +196,7 @@ export default function MethodPage() {
               variants={staggerItem}
               className="text-body-lg text-text-secondary mb-8 leading-relaxed"
             >
-              Most marketing in this market begins too late.
+              {isAr ? 'معظم التسويق في السوق ده بيبدأ متأخر.' : 'Most marketing in this market begins too late.'}
             </motion.p>
 
             {/* Problem list — each statement enters individually */}
@@ -207,7 +221,7 @@ export default function MethodPage() {
               className="pl-5 border-l-2 border-accent mb-10"
             >
               <p className="text-heading-lg font-satoshi text-text-primary">
-                That is why so much activity fails to compound.
+                {isAr ? 'ده سبب فشل كتير من النشاط في التراكم.' : 'That is why so much activity fails to compound.'}
               </p>
             </motion.div>
 
@@ -219,7 +233,7 @@ export default function MethodPage() {
               variants={staggerItem}
               className="text-heading-xl font-satoshi text-text-primary mb-10"
             >
-              The <BrandName /> Method exists to correct that sequence.
+              {isAr ? 'منهجية' : 'The'} <BrandName /> {isAr ? 'موجودة لتصحيح التسلسل ده.' : 'Method exists to correct that sequence.'}
             </motion.p>
 
             {/* Solution — paired statements */}
@@ -235,7 +249,7 @@ export default function MethodPage() {
               variants={staggerItem}
               className="text-body-lg text-text-secondary italic leading-relaxed"
             >
-              Because when the order is wrong, even good work loses power.
+              {isAr ? 'لأن لما الترتيب غلط، حتى الشغل الكويس بيفقد قوته.' : 'Because when the order is wrong, even good work loses power.'}
             </motion.p>
           </motion.div>
         </div>
@@ -246,7 +260,7 @@ export default function MethodPage() {
         <div className="container-site">
           <div className="pt-section-md mb-10">
             <h2 className="text-heading-xl font-satoshi text-text-primary mb-8">
-              Four Stages. One Sequence. No Guesswork.
+              {isAr ? 'أربع مراحل. تسلسل واحد. بدون تخمين.' : 'Four Stages. One Sequence. No Guesswork.'}
             </h2>
 
             {/* Stage flow strip */}
@@ -275,6 +289,7 @@ export default function MethodPage() {
               index={i}
               isLast={i === methodContent.stages.length - 1}
               ghostOpacity={[0.10, 0.15, 0.20, 0.28][i]}
+              outcomeLabel={outcomeLabel}
             />
           ))}
         </div>
@@ -292,7 +307,7 @@ export default function MethodPage() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start mb-20">
               <motion.div variants={staggerItem}>
                 <h2 className="text-heading-xl font-satoshi text-text-primary mb-6">
-                  Why The Sequence Matters
+                  {isAr ? 'ليه التسلسل مهم' : 'Why The Sequence Matters'}
                 </h2>
               </motion.div>
               <motion.div variants={staggerItem}>
@@ -350,7 +365,7 @@ export default function MethodPage() {
               variants={staggerItem}
               className="text-heading-xl font-satoshi text-text-primary mb-14"
             >
-              The Result
+              {isAr ? 'النتيجة' : 'The Result'}
             </motion.h2>
 
             {/* Result items — building crescendo, each staggers in */}
