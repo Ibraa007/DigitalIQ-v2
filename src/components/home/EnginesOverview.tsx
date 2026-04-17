@@ -33,7 +33,7 @@ export default function EnginesOverview() {
             variants={staggerItem}
             className="text-display-lg font-satoshi text-text-primary"
           >
-            <span className="block">{isAr ? 'خمس محركات.' : 'Five engines.'}</span>
+            <span className="block">{isAr ? 'خمسة محركات.' : 'Five engines.'}</span>
             <span className="block text-accent">{isAr ? 'طبقة ذكاء واحدة.' : 'One Intelligence Layer.'}</span>
           </motion.h2>
         </motion.div>
@@ -76,7 +76,7 @@ export default function EnginesOverview() {
 
                 <div className="flex flex-col gap-3">
                   {(isAr
-                    ? ['القرارات بتفضل متصلة.', 'الأولويات بتفضل واضحة.', 'التنفيذ بيفضل متوافق.']
+                    ? ['القرارات تظل مترابطة.', 'الأولويات تبقى واضحة.', 'التنفيذ يبقى منسقًا.']
                     : ['Decisions stay connected.', 'Priorities stay clear.', 'Execution stays aligned.']
                   ).map((line, i) => (
                     <div key={i} className="flex items-center gap-3">
@@ -99,7 +99,7 @@ export default function EnginesOverview() {
                 <path d="M2 7h10M8 3l4 4-4 4" stroke="rgba(255,30,0,0.4)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
               <span className="text-label-md text-text-muted font-satoshi uppercase tracking-widest">
-                {isAr ? 'مدعوم بـ' : 'Powered by'}
+                {isAr ? 'مدعومة بـ' : 'Powered by'}
               </span>
             </div>
           </motion.div>

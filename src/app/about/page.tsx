@@ -284,12 +284,12 @@ export default function AboutPage() {
 
               <p className="text-body-lg text-text-secondary max-w-[520px] mx-auto mb-10 leading-relaxed">
                 {isAr
-                  ? aboutContent.standard.closing.replace('المعيار ده بقى DigitalIQ.', '').trim()
+                  ? aboutContent.standard.closing.replace('المعيار الآن هو DigitalIQ.', '').trim()
                   : aboutContent.standard.closing.replace('That standard became DigitalIQ.', '').trim()}
               </p>
 
               <h2 className="text-display-xl font-satoshi text-text-primary mb-12">
-                {isAr ? 'المعيار ده بقى' : 'That standard became'} <BrandName />.
+                {isAr ? 'المعيار الآن هو' : 'That standard became'} <BrandName />.
               </h2>
 
               <Link

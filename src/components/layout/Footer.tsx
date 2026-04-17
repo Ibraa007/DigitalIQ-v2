@@ -185,7 +185,7 @@ export default function Footer() {
               </p>
             </div>
             <p className="text-body-sm text-text-secondary mb-6 leading-relaxed">
-              {isAr ? 'كل منظومة نمو جدية بتبدأ بالوضوح.' : 'Every serious growth system begins with clarity.'}
+              {isAr ? 'كل منظومة نمو جادة تبدأ بالوضوح.' : 'Every serious growth system begins with clarity.'}
             </p>
             <Link
               href={href('/start-now')}
@@ -226,7 +226,7 @@ export default function Footer() {
           </Link>
 
           <p className="mt-5 text-label-md text-text-muted font-satoshi tracking-widest text-center">
-            {isAr ? 'الهيكل اللي التسويق بيتاكمي عليه.' : 'The structure behind marketing that compounds.'}
+            {isAr ? 'الهيكل الذي يقوم عليه التسويق.' : 'The structure behind marketing that compounds.'}
           </p>
 
           <div className="flex items-center gap-3 mt-8 mb-10">
