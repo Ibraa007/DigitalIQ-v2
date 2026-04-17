@@ -9,7 +9,7 @@ import { useLanguage } from '@/contexts/LanguageContext'
 export default function MethodPreview() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
-  const { t, isAr } = useLanguage()
+  const { t, isAr, href } = useLanguage()
   const { method } = t.homeContent
 
   return (
@@ -120,7 +120,7 @@ export default function MethodPreview() {
           transition={{ duration: 0.6, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
           className="pt-8 border-t border-surface-border"
         >
-          <Button href={method.cta.href} variant="ghost" size="md">
+          <Button href={href(method.cta.href)} variant="ghost" size="md">
             {method.cta.label}
             <span className="ml-1.5 text-accent">→</span>
           </Button>

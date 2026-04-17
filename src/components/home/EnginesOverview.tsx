@@ -10,7 +10,7 @@ import { useLanguage } from '@/contexts/LanguageContext'
 export default function EnginesOverview() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
-  const { t, isAr } = useLanguage()
+  const { t, isAr, href } = useLanguage()
   const { system } = t.homeContent
 
   return (
@@ -114,7 +114,7 @@ export default function EnginesOverview() {
             {system.engines.map((engine) => (
               <motion.div key={engine.number} variants={staggerItem}>
                 <Link
-                  href={engine.href}
+                  href={href(engine.href)}
                   className="group relative flex items-start gap-5 py-7 px-4 hover:bg-surface-02/50 transition-colors duration-250 overflow-hidden"
                 >
                   {/* Left accent bar — slides in on hover */}
@@ -163,7 +163,7 @@ export default function EnginesOverview() {
           transition={{ duration: 0.6, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
           className="mt-12"
         >
-          <Button href={system.cta.href} variant="ghost">
+          <Button href={href(system.cta.href)} variant="ghost">
             {system.cta.label}
             <span className="ml-1 text-accent">→</span>
           </Button>

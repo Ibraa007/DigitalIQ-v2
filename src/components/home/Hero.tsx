@@ -100,7 +100,7 @@ function FloatingShape({
 }
 
 export default function Hero() {
-  const { t, isAr } = useLanguage()
+  const { t, isAr, href } = useLanguage()
   const { hero } = t.homeContent
   const HEADLINE_LINES = isAr ? HEADLINE_LINES_AR : HEADLINE_LINES_EN
 
@@ -256,7 +256,7 @@ export default function Hero() {
             className="flex flex-wrap gap-4"
           >
             {hero.ctas.map((cta) => (
-              <Button key={cta.href} href={cta.href} variant={cta.variant} size="md">
+              <Button key={cta.href} href={href(cta.href)} variant={cta.variant} size="md">
                 {cta.label}
               </Button>
             ))}

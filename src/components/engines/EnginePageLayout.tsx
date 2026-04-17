@@ -55,7 +55,7 @@ function StaggerList({ children, className = '' }: { children: React.ReactNode; 
 }
 
 export default function EnginePageLayout({ engine }: EnginePageLayoutProps) {
-  const { t, isAr } = useLanguage()
+  const { t, isAr, href } = useLanguage()
   const heroRef = useRef(null)
   const heroInView = useInView(heroRef, { once: true })
   const num = engineNumbers[engine.id] ?? ''
@@ -89,7 +89,7 @@ export default function EnginePageLayout({ engine }: EnginePageLayoutProps) {
             {/* Engine number label — replaces generic "Services" */}
             <motion.div variants={staggerItem} className="flex items-center gap-3 mb-7">
               <Link
-                href="/services"
+                href={href('/services')}
                 className="text-label-md font-satoshi text-text-muted uppercase tracking-widest hover:text-accent transition-colors duration-250"
               >
                 {isAr ? 'الخدمات' : 'Services'}
@@ -125,8 +125,8 @@ export default function EnginePageLayout({ engine }: EnginePageLayoutProps) {
             </motion.p>
 
             <motion.div variants={staggerItem} className="flex flex-wrap gap-4">
-              <Button href="/start-now" variant="primary">{isAr ? 'ابدأ التشخيص' : 'Start the Diagnosis'}</Button>
-              <Button href="/start-now" variant="ghost">{isAr ? 'كلم فريقنا' : 'Talk to Our Team'}</Button>
+              <Button href={href('/start-now')} variant="primary">{isAr ? 'ابدأ التشخيص' : 'Start the Diagnosis'}</Button>
+              <Button href={href('/start-now')} variant="ghost">{isAr ? 'كلم فريقنا' : 'Talk to Our Team'}</Button>
             </motion.div>
           </motion.div>
         </div>
@@ -318,8 +318,8 @@ export default function EnginePageLayout({ engine }: EnginePageLayoutProps) {
               {startNowContent.hero.body}
             </p>
             <div className="flex flex-wrap gap-4">
-              <Button href="/start-now" variant="primary" size="lg">{isAr ? 'ابدأ التشخيص' : 'Start the Diagnosis'}</Button>
-              <Button href="/start-now" variant="ghost" size="lg">{isAr ? 'كلم فريقنا' : 'Talk to Our Team'}</Button>
+              <Button href={href('/start-now')} variant="primary" size="lg">{isAr ? 'ابدأ التشخيص' : 'Start the Diagnosis'}</Button>
+              <Button href={href('/start-now')} variant="ghost" size="lg">{isAr ? 'كلم فريقنا' : 'Talk to Our Team'}</Button>
             </div>
           </AnimatedSection>
         </div>

@@ -6,19 +6,19 @@ import { BrandName } from '@/components/ui/BrandText'
 import { useLanguage } from '@/contexts/LanguageContext'
 
 const engineLinks = [
-  { labelEn: 'Performance Engine', labelAr: 'محرك الأداء', href: '/services/performance' },
-  { labelEn: 'Creative Engine', labelAr: 'محرك الكريتيف', href: '/services/creative' },
-  { labelEn: 'Social Engine', labelAr: 'محرك السوشيال', href: '/services/social' },
-  { labelEn: 'Influence Engine', labelAr: 'محرك الإنفلوينسر', href: '/services/influence' },
-  { labelEn: 'AI & Automation Engine', labelAr: 'محرك الـ AI والأتمتة', href: '/services/ai-automation' },
+  { labelEn: 'Performance Engine', labelAr: 'محرك الأداء', path: '/services/performance' },
+  { labelEn: 'Creative Engine', labelAr: 'محرك الكريتيف', path: '/services/creative' },
+  { labelEn: 'Social Engine', labelAr: 'محرك السوشيال', path: '/services/social' },
+  { labelEn: 'Influence Engine', labelAr: 'محرك الإنفلوينسر', path: '/services/influence' },
+  { labelEn: 'AI & Automation Engine', labelAr: 'محرك الـ AI والأتمتة', path: '/services/ai-automation' },
 ]
 
 const pageLinks = [
-  { labelEn: 'Home', labelAr: 'الرئيسية', href: '/' },
-  { labelEn: 'About', labelAr: 'عن DigitalIQ', href: '/about' },
-  { labelEn: 'Method', labelAr: 'المنهجية', href: '/method' },
-  { labelEn: 'Services', labelAr: 'الخدمات', href: '/services' },
-  { labelEn: 'Start Now', labelAr: 'ابدأ دلوقتي', href: '/start-now' },
+  { labelEn: 'Home', labelAr: 'الرئيسية', path: '/' },
+  { labelEn: 'About', labelAr: 'عن DigitalIQ', path: '/about' },
+  { labelEn: 'Method', labelAr: 'المنهجية', path: '/method' },
+  { labelEn: 'Services', labelAr: 'الخدمات', path: '/services' },
+  { labelEn: 'Start Now', labelAr: 'ابدأ دلوقتي', path: '/start-now' },
 ]
 
 const socialLinks = [
@@ -61,7 +61,7 @@ const socialLinks = [
 ]
 
 export default function Footer() {
-  const { isAr } = useLanguage()
+  const { isAr, href } = useLanguage()
 
   return (
     <footer className="relative border-t border-surface-border mt-section-lg">
@@ -83,9 +83,9 @@ export default function Footer() {
             </div>
             <ul className="space-y-3">
               {pageLinks.map((link) => (
-                <li key={link.href}>
+                <li key={link.path}>
                   <Link
-                    href={link.href}
+                    href={href(link.path)}
                     className="group relative inline-block text-body-sm text-text-secondary hover:text-text-primary transition-colors duration-250"
                   >
                     {isAr ? link.labelAr : link.labelEn}
@@ -106,9 +106,9 @@ export default function Footer() {
             </div>
             <ul className="space-y-3">
               {engineLinks.map((link) => (
-                <li key={link.href}>
+                <li key={link.path}>
                   <Link
-                    href={link.href}
+                    href={href(link.path)}
                     className="group relative inline-block text-body-sm text-text-secondary hover:text-text-primary transition-colors duration-250"
                   >
                     {isAr ? link.labelAr : link.labelEn}
@@ -188,7 +188,7 @@ export default function Footer() {
               {isAr ? 'كل منظومة نمو جدية بتبدأ بالوضوح.' : 'Every serious growth system begins with clarity.'}
             </p>
             <Link
-              href="/start-now"
+              href={href('/start-now')}
               className="inline-flex items-center gap-2 px-5 py-2.5 text-label-lg font-satoshi uppercase tracking-widest bg-accent text-text-inverse rounded-md hover:bg-accent-hover transition-colors duration-250"
             >
               {isAr ? 'ابدأ' : 'Start Now'}
@@ -215,7 +215,7 @@ export default function Footer() {
             }}
           />
 
-          <Link href="/" className="relative">
+          <Link href={href('/')} className="relative">
             <Image
               src="/logo-white.png"
               alt="DigitalIQ"

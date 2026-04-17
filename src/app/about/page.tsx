@@ -67,7 +67,7 @@ function OriginPanel({ panel, index }: { panel: { label: string; headline: strin
 
 // ─── About Page ───────────────────────────────────────────────────────────────
 export default function AboutPage() {
-  const { t, isAr } = useLanguage()
+  const { t, isAr, href } = useLanguage()
   const aboutContent = t.aboutContent
   const heroRef = useRef(null)
   const heroInView = useInView(heroRef, { once: true })
@@ -293,7 +293,7 @@ export default function AboutPage() {
               </h2>
 
               <Link
-                href="/start-now"
+                href={href('/start-now')}
                 className="inline-flex items-center gap-2 px-7 py-4 bg-accent text-[#080808] text-label-lg font-satoshi uppercase tracking-widest rounded-lg hover:bg-accent-hover transition-colors duration-250"
               >
                 {isAr ? 'ابدأ التشخيص' : 'Start the Diagnosis'}

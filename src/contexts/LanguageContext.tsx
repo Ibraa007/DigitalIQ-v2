@@ -1,6 +1,7 @@
 'use client'
 
-import { createContext, useContext, useState, useEffect, useCallback, type ReactNode } from 'react'
+import { createContext, useContext, useCallback, useEffect, type ReactNode } from 'react'
+import { usePathname, useRouter } from 'next/navigation'
 import * as en from '@/lib/content'
 import * as ar from '@/lib/content.ar'
 
@@ -11,30 +12,48 @@ interface LangCtx {
   toggle: () => void
   isAr: boolean
   t: typeof en
+  href: (path: string) => string
 }
 
-const defaultCtx: LangCtx = { lang: 'en', toggle: () => {}, isAr: false, t: en }
-const Ctx = createContext<LangCtx>(defaultCtx)
+const Ctx = createContext<LangCtx>({
+  lang: 'en',
+  toggle: () => {},
+  isAr: false,
+  t: en,
+  href: (p) => p,
+})
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [lang, setLang] = useState<Lang>('en')
-
-  const apply = useCallback((l: Lang) => {
-    setLang(l)
-    localStorage.setItem('diq_lang', l)
-    document.documentElement.lang = l
-    document.documentElement.dir = l === 'ar' ? 'rtl' : 'ltr'
-  }, [])
+  const pathname = usePathname()
+  const router = useRouter()
+  const isAr = pathname.startsWith('/ar')
+  const lang: Lang = isAr ? 'ar' : 'en'
 
   useEffect(() => {
-    const saved = localStorage.getItem('diq_lang') as Lang | null
-    if (saved === 'ar') apply('ar')
-  }, [apply])
+    document.documentElement.lang = lang
+    document.documentElement.dir = isAr ? 'rtl' : 'ltr'
+  }, [lang, isAr])
 
-  const toggle = useCallback(() => apply(lang === 'en' ? 'ar' : 'en'), [lang, apply])
+  const toggle = useCallback(() => {
+    if (isAr) {
+      router.push(pathname.replace(/^\/ar/, '') || '/')
+    } else {
+      router.push(`/ar${pathname === '/' ? '' : pathname}`)
+    }
+  }, [isAr, pathname, router])
+
+  const href = useCallback(
+    (path: string) => {
+      if (isAr && path.startsWith('/')) {
+        return `/ar${path === '/' ? '' : path}`
+      }
+      return path
+    },
+    [isAr]
+  )
 
   return (
-    <Ctx.Provider value={{ lang, toggle, isAr: lang === 'ar', t: lang === 'ar' ? (ar as unknown as typeof en) : en }}>
+    <Ctx.Provider value={{ lang, toggle, isAr, t: isAr ? (ar as unknown as typeof en) : en, href }}>
       {children}
     </Ctx.Provider>
   )

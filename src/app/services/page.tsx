@@ -9,7 +9,7 @@ import Button from '@/components/ui/Button'
 import { useLanguage } from '@/contexts/LanguageContext'
 
 export default function ServicesPage() {
-  const { t, isAr } = useLanguage()
+  const { t, isAr, href } = useLanguage()
   const servicesContent = t.servicesContent
   const heroRef = useRef(null)
   const heroInView = useInView(heroRef, { once: true })
@@ -65,7 +65,7 @@ export default function ServicesPage() {
             </motion.p>
             <motion.div variants={staggerItem} className="flex flex-wrap gap-4">
               {servicesContent.hero.ctas.map((cta) => (
-                <Button key={cta.href + cta.label} href={cta.href} variant={cta.variant}>
+                <Button key={cta.href + cta.label} href={href(cta.href)} variant={cta.variant}>
                   {cta.label}
                 </Button>
               ))}
@@ -222,7 +222,7 @@ export default function ServicesPage() {
                           <p className="text-body-sm text-text-secondary">{engine.impact}</p>
                         </div>
                         <Link
-                          href={engine.href}
+                          href={href(engine.href)}
                           className="inline-flex items-center gap-2 text-label-lg font-satoshi uppercase tracking-widest text-text-secondary hover:text-accent transition-colors duration-250"
                         >
                           {isAr ? 'اعرف أكتر' : 'Learn More'}
@@ -348,7 +348,7 @@ export default function ServicesPage() {
             </motion.p>
             <motion.div variants={staggerItem} className="flex flex-wrap gap-4">
               {servicesContent.ctas.map((cta) => (
-                <Button key={cta.href + cta.label} href={cta.href} variant={cta.variant}>
+                <Button key={cta.href + cta.label} href={href(cta.href)} variant={cta.variant}>
                   {cta.label}
                 </Button>
               ))}

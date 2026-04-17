@@ -102,7 +102,7 @@ function StageCard({
 
 // ─── Method Page ──────────────────────────────────────────────────────────────
 export default function MethodPage() {
-  const { t, isAr } = useLanguage()
+  const { t, isAr, href } = useLanguage()
   const methodContent = t.methodContent
 
   const heroRef = useRef(null)
@@ -401,7 +401,7 @@ export default function MethodPage() {
               </blockquote>
               <div className="flex flex-wrap gap-4">
                 {methodContent.ctas.map((cta) => (
-                  <Button key={cta.href + cta.label} href={cta.href} variant={cta.variant}>
+                  <Button key={cta.href + cta.label} href={href(cta.href)} variant={cta.variant}>
                     {cta.label}
                   </Button>
                 ))}

@@ -9,7 +9,7 @@ import { useLanguage } from '@/contexts/LanguageContext'
 export default function SystemCTA() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
-  const { t } = useLanguage()
+  const { t, href } = useLanguage()
   const { systemCta } = t.homeContent
 
   return (
@@ -52,7 +52,7 @@ export default function SystemCTA() {
             className="flex flex-wrap gap-4"
           >
             {systemCta.ctas.map((cta) => (
-              <Button key={cta.href + cta.label} href={cta.href} variant={cta.variant} size="lg">
+              <Button key={cta.href + cta.label} href={href(cta.href)} variant={cta.variant} size="lg">
                 {cta.label}
               </Button>
             ))}

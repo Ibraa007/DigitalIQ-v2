@@ -8,7 +8,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useLanguage } from '@/contexts/LanguageContext'
 
 export default function Navbar() {
-  const { lang, toggle, isAr } = useLanguage()
+  const { lang, toggle, isAr, href } = useLanguage()
   const [scrolled, setScrolled] = useState(false)
   const [visible, setVisible] = useState(true)
   const [servicesOpen, setServicesOpen] = useState(false)
@@ -16,6 +16,8 @@ export default function Navbar() {
   const pathname = usePathname()
   const dropdownRef = useRef<HTMLDivElement>(null)
   const lastScrollY = useRef(0)
+
+  const cleanPath = pathname.replace(/^\/ar/, '') || '/'
 
   const engineLinks = [
     { label: isAr ? 'محرك الأداء' : 'Performance Engine', href: '/services/performance', number: '01' },
@@ -65,12 +67,12 @@ export default function Navbar() {
     return () => document.removeEventListener('mousedown', handleClick)
   }, [])
 
-  const isActive = (href: string) =>
-    href === '/services'
-      ? pathname.startsWith('/services')
-      : href === '/'
-      ? pathname === '/'
-      : pathname === href
+  const isActive = (linkHref: string) =>
+    linkHref === '/services'
+      ? cleanPath.startsWith('/services')
+      : linkHref === '/'
+      ? cleanPath === '/'
+      : cleanPath === linkHref
 
   return (
     <motion.header
@@ -85,7 +87,7 @@ export default function Navbar() {
     >
       <div className="container-site flex items-center justify-between h-[72px]">
         {/* Logo */}
-        <Link href="/" className="flex-shrink-0 relative">
+        <Link href={href('/')} className="flex-shrink-0 relative">
           <Image
             src="/logo-white.png"
             alt="DigitalIQ"
@@ -138,7 +140,7 @@ export default function Navbar() {
                     >
                       <div className="p-2">
                         <Link
-                          href="/services"
+                          href={href('/services')}
                           className="block px-4 py-3 rounded-lg text-text-secondary hover:text-text-primary hover:bg-surface-04 transition-colors duration-200 text-body-sm font-inter mb-1"
                         >
                           <span className="block text-label-md text-accent uppercase tracking-widest mb-0.5">
@@ -150,7 +152,7 @@ export default function Navbar() {
                         {engineLinks.map((engine) => (
                           <Link
                             key={engine.href}
-                            href={engine.href}
+                            href={href(engine.href)}
                             className="flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-surface-04 transition-colors duration-200 group"
                           >
                             <span className="text-label-md text-text-muted font-satoshi group-hover:text-accent transition-colors duration-200">
@@ -169,7 +171,7 @@ export default function Navbar() {
             ) : (
               <Link
                 key={link.href}
-                href={link.href}
+                href={href(link.href)}
                 className={[
                   'relative text-label-lg font-satoshi uppercase tracking-widest transition-colors duration-250 group',
                   isActive(link.href)
@@ -198,10 +200,10 @@ export default function Navbar() {
           </button>
 
           <Link
-            href="/start-now"
+            href={href('/start-now')}
             className={[
               'ml-2 px-5 py-2 text-label-lg font-satoshi uppercase tracking-widest rounded-md border transition-colors duration-250',
-              pathname === '/start-now'
+              cleanPath === '/start-now'
                 ? 'bg-accent text-text-inverse border-accent'
                 : 'border-accent text-accent hover:bg-accent hover:text-text-inverse',
             ].join(' ')}
@@ -258,7 +260,7 @@ export default function Navbar() {
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
-                  href={link.href}
+                  href={href(link.href)}
                   className={[
                     'py-3 text-heading-md font-satoshi border-b border-surface-border transition-colors duration-200',
                     isActive(link.href) ? 'text-accent' : 'text-text-primary',
@@ -275,7 +277,7 @@ export default function Navbar() {
                 {engineLinks.map((engine) => (
                   <Link
                     key={engine.href}
-                    href={engine.href}
+                    href={href(engine.href)}
                     className="flex items-center gap-3 py-2.5 border-b border-surface-divider text-text-secondary hover:text-text-primary transition-colors duration-200"
                   >
                     <span className="text-label-md text-text-muted font-satoshi w-6">{engine.number}</span>
@@ -285,7 +287,7 @@ export default function Navbar() {
               </div>
 
               <Link
-                href="/start-now"
+                href={href('/start-now')}
                 className="mt-4 py-3 text-center text-label-lg font-satoshi uppercase tracking-widest bg-accent text-text-inverse rounded-md"
               >
                 {isAr ? 'ابدأ' : 'Start Now'}
